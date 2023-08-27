@@ -1,9 +1,9 @@
 package com.senac.projeto.integrador.loja.service;
 
-import com.senac.projeto.integrador.loja.builder.RegisterDTOResponseBuilder;
+import com.senac.projeto.integrador.loja.builder.UpdateDTOResponseBuilder;
 import com.senac.projeto.integrador.loja.builder.UserBuilder;
 import com.senac.projeto.integrador.loja.dto.request.UserRequestDTO;
-import com.senac.projeto.integrador.loja.dto.response.RegisterDTOResponse;
+import com.senac.projeto.integrador.loja.dto.response.UpdateDTOResponse;
 import com.senac.projeto.integrador.loja.model.User;
 import com.senac.projeto.integrador.loja.repository.UserRepository;
 import com.senac.projeto.integrador.loja.utils.ValidatorUtils;
@@ -14,29 +14,29 @@ import org.springframework.util.ObjectUtils;
 
 @RequiredArgsConstructor
 @Service
-public class RegisterUserService {
+public class UpdateUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public RegisterDTOResponse registerUser(UserRequestDTO userRequestDTO) throws Exception {
+    public UpdateDTOResponse updateUser(UserRequestDTO userRequestDTO, String login) throws Exception {
         ValidatorUtils.validateRequest(userRequestDTO);
 
-        User emailValidate = userRepository.findById(userRequestDTO.getEmail()).orElse(null);
-        User cpfValidate = userRepository.findByCpf(userRequestDTO.getCpf());
+        User user = userRepository.findById(userRequestDTO.getEmail()).orElse(null);
 
-        if(!ObjectUtils.isEmpty(emailValidate)){
-            throw new Exception("Email já cadastrado!");
+        if(ObjectUtils.isEmpty(user)){
+            throw new Exception("Usuário não encontrado");
+        }
+        if(login.equals(user.getEmail())){
+            throw new Exception("Alteração de grupo para usuários próprios, não é permitida");
         }
 
-        if(!ObjectUtils.isEmpty(cpfValidate)){
-            throw new Exception("CPF já cadastrado!");
-        }
-
-        RegisterDTOResponse registerDTOResponse = RegisterDTOResponseBuilder.buildFrom(userRequestDTO);
         String passwordEncripted = passwordEncoder.encode(userRequestDTO.getPassword());
-        User toSave = UserBuilder.buildFrom(registerDTOResponse, passwordEncripted);
+
+        User toSave = UserBuilder.buildFrom(userRequestDTO, user.getEmail(), user.getCpf(), passwordEncripted);
         userRepository.save(toSave);
-        return registerDTOResponse;
+
+        return UpdateDTOResponseBuilder.buildFrom(toSave);
     }
+
 }

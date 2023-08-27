@@ -1,6 +1,6 @@
 package com.senac.projeto.integrador.loja.controller;
 
-import com.senac.projeto.integrador.loja.dto.request.RegisterRequestDTO;
+import com.senac.projeto.integrador.loja.dto.request.UserRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.RegisterDTOResponse;
 import com.senac.projeto.integrador.loja.service.RegisterUserService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,9 @@ public class PostController {
     private final RegisterUserService registerUserService;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterDTOResponse> registerUser(@RequestBody RegisterRequestDTO registerRequestDTO) throws Exception {
+    public ResponseEntity<RegisterDTOResponse> registerUser(@RequestBody UserRequestDTO userRequestDTO) throws Exception {
 
-        RegisterDTOResponse registerDTOResponse = registerUserService.registerUser(registerRequestDTO);
+        RegisterDTOResponse registerDTOResponse = registerUserService.registerUser(userRequestDTO);
         return ResponseEntity.ok().body(registerDTOResponse);
     }
 }
