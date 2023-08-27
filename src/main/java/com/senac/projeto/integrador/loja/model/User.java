@@ -1,5 +1,6 @@
 package com.senac.projeto.integrador.loja.model;
 
+import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,16 +15,21 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "ID_USUARIO")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "EMAIL")
+    private String email;
 
     @Column(name = "NOME")
     private String name;
 
-    @Column(name = "LOGIN")
-    private String login;
+    @Column(name = "CPF")
+    private String cpf;
 
     @Column(name = "SENHA")
     private String password;
+
+    @Column(name = "GRUPO")
+    private GroupIndicator group;
+
+    @Column(name = "ATIVO")
+    private Boolean isActive;
 }
