@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ObjectUtils;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 @ComponentScan
 @Configuration
 @EnableAutoConfiguration
+@EnableSwagger2
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class Application {
 
