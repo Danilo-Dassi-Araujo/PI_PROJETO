@@ -1,6 +1,6 @@
 package com.senac.projeto.integrador.loja.builder;
 
-import com.senac.projeto.integrador.loja.dto.request.RegisterRequestDTO;
+import com.senac.projeto.integrador.loja.dto.request.UserRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.RegisterDTOResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -8,13 +8,13 @@ import lombok.RequiredArgsConstructor;
 public class RegisterDTOResponseBuilder {
 
 
-    public static RegisterDTOResponse buildFrom(RegisterRequestDTO registerRequestDTO){
+    public static RegisterDTOResponse buildFrom(UserRequestDTO userRequestDTO){
         return RegisterDTOResponse
                 .builder()
-                .email(registerRequestDTO.getEmail())
-                .name(registerRequestDTO.getName())
-                .cpf(registerRequestDTO.getCpf())
-                .group(registerRequestDTO.getGroup())
+                .email(userRequestDTO.getEmail())
+                .name(userRequestDTO.getName())
+                .cpf(userRequestDTO.getCpf())
+                .group(userRequestDTO.getGroup())
                 .build();
     }
 }

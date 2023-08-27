@@ -1,7 +1,6 @@
 package com.senac.projeto.integrador.loja.dto.request;
 
 import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 
@@ -13,7 +12,7 @@ import javax.persistence.Enumerated;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequestDTO {
+public class UserRequestDTO {
 
     @ApiParam("Email")
     private String email;
