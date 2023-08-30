@@ -15,6 +15,26 @@ public class ValidatorUtils {
             throw new Exception("A request está vazia!");
         }
 
+        if(ObjectUtils.isEmpty(requestDTO.getEmail())){
+            throw new Exception("O email está vazio!");
+        }
+
+        if(ObjectUtils.isEmpty(requestDTO.getName())){
+            throw new Exception("O nome está vazio!");
+        }
+
+        if(ObjectUtils.isEmpty(requestDTO.getCpf())){
+            throw new Exception("O cpf está vazio!");
+        }
+
+        if(ObjectUtils.isEmpty(requestDTO.getPassword())){
+            throw new Exception("O senha está vazia!");
+        }
+
+        if(ObjectUtils.isEmpty(requestDTO.getPasswordConfirmation())){
+            throw new Exception("O confirmação de senha está vazia!");
+        }
+
         if(!requestDTO.getPassword().equals(requestDTO.getPasswordConfirmation())){
             throw new Exception("As senhas não estão iguais!");
         }

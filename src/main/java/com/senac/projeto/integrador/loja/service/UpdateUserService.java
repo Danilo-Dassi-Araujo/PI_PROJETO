@@ -27,13 +27,14 @@ public class UpdateUserService {
         if(ObjectUtils.isEmpty(user)){
             throw new Exception("Usuário não encontrado");
         }
-        if(login.equals(user.getEmail())){
-            throw new Exception("Alteração de grupo para usuários próprios, não é permitida");
-        }
 
         String passwordEncripted = passwordEncoder.encode(userRequestDTO.getPassword());
 
         User toSave = UserBuilder.buildFrom(userRequestDTO, user.getEmail(), user.getCpf(), passwordEncripted);
+
+        if(!toSave.getGroup().equals(user.getGroup())){
+            throw new Exception("Alteração de grupo para usuários logado no momento não é permitida!");
+        }
         userRepository.save(toSave);
 
         return UpdateDTOResponseBuilder.buildFrom(toSave);
