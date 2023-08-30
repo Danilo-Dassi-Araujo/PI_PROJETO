@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/edit")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PutController {
 
     private final InactiveAndActiveUserService inactiveAndActiveUserService;
     private final UpdateUserService updateUserService;
+
 
     @PutMapping
     public ResponseEntity<Void> inactiveOrActiveUser(@RequestBody EmailDTORequest email) throws Exception {

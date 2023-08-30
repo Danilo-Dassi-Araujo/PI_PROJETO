@@ -24,7 +24,11 @@ public class LoginService {
         User user = userRepository.findById(loginRequestDTO.getEmail()).orElse(null);
 
         if(ObjectUtils.isEmpty(user)){
-            throw new Exception("Usuário não cadastrado!");
+            return LoginDTOResponse
+                    .builder()
+                    .message("Acesso negado! Usuário não cadastrado!")
+                    .isPermission(Boolean.FALSE)
+                    .build();
         }
         Boolean isSame = verifyPassword(loginRequestDTO.getPassword(), user);
 

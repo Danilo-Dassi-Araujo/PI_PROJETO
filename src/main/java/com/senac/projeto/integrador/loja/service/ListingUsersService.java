@@ -21,7 +21,7 @@ public class ListingUsersService {
     private final UserSpecification userSpecification;
 
     public List<ListingDTOResponse> getAllUsers(ControllerFilter controllerFilter, GroupIndicator groupIndicator) throws Exception {
-        if (ObjectUtils.isEmpty(controllerFilter)) {
+        if (ObjectUtils.isEmpty(controllerFilter.getName())) {
             return listAllUsers(groupIndicator);
         }
 
