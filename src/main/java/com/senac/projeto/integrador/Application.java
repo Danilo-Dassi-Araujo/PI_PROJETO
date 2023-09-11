@@ -23,13 +23,13 @@ public class Application {
 	public static void main(String[] args) throws SQLException {
 		SpringApplication.run(Application.class, args);
 
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/loja",
-				"postgres",
-				"3014");
-		if(!ObjectUtils.isEmpty(connection)){
-			System.out.println("Conectado com sucesso!");
-		} else{
-			System.out.println("Falha na conexão");
-		}
+//		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/loja",
+//				"postgres",
+//				"3014");
+//		if(!ObjectUtils.isEmpty(connection)){
+//			System.out.println("Conectado com sucesso!");
+//		} else{
+//			System.out.println("Falha na conexão");
+//		}
 	}
 }
