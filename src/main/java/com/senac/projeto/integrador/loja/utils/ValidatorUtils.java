@@ -1,6 +1,7 @@
 package com.senac.projeto.integrador.loja.utils;
 
 import com.senac.projeto.integrador.loja.dto.request.EmailDTORequest;
+import com.senac.projeto.integrador.loja.dto.request.ProductRequestDTO;
 import com.senac.projeto.integrador.loja.dto.request.UserRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,45 @@ public class ValidatorUtils {
             throw new Exception("As senhas não estão iguais!");
         }
     }
+
+    public static void validateProduct(ProductRequestDTO productRequestDTO) throws Exception {
+        if (ObjectUtils.isEmpty(productRequestDTO.getNameProduct())) {
+            throw new Exception("Nome do produto está vazio!");
+        }
+
+        if (ObjectUtils.isEmpty(productRequestDTO.getNameProduct().length() > 200)) {
+            throw new Exception("O nome do produto não pode conter mais de 200 caracteres!");
+        }
+
+        if (ObjectUtils.isEmpty(productRequestDTO.getDescription())) {
+            throw new Exception("Descrição do produto está vazia!");
+        }
+
+        if (productRequestDTO.getDescription().length() > 2000) {
+            throw new Exception("A descrição não pode conter mais de 2000 caracteres!");
+        }
+
+        if(ObjectUtils.isEmpty(productRequestDTO.getPriceProduct())){
+            throw new Exception("Preço do produto está vazio!");
+        }
+
+        if(productRequestDTO.getPriceProduct() < 0){
+            throw new Exception("Preço não pode ser menor que 0.");
+        }
+
+        if (0.5 > productRequestDTO.getAssessmentProduct() || productRequestDTO.getAssessmentProduct() > 5) {
+            throw new Exception("Avaliação: " + productRequestDTO.getAssessmentProduct() + " está fora do range de 0.5 - 5");
+        }
+
+        if(ObjectUtils.isEmpty(productRequestDTO.getStockQuantity())){
+            throw new Exception("Quantidade não pode ser vazio!");
+        }
+
+        if (productRequestDTO.getStockQuantity() < 0) {
+            throw new Exception("Quantidade não pode ser menor que 0.");
+        }
+    }
+
     public static void validateEmailRequest(EmailDTORequest emailDTORequest) throws Exception {
         if(ObjectUtils.isEmpty(emailDTORequest)){
             throw new Exception("Request Vazia!");
