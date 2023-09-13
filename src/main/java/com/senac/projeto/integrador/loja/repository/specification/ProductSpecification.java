@@ -1,6 +1,6 @@
 package com.senac.projeto.integrador.loja.repository.specification;
 
-import com.senac.projeto.integrador.loja.filter.ControllerFilter;
+import com.senac.projeto.integrador.loja.filter.FilterProducts;
 import com.senac.projeto.integrador.loja.filter.repository.ProductPredicateHandler;
 import com.senac.projeto.integrador.loja.model.Product;
 import com.senac.projeto.integrador.loja.repository.ProductRepository;
@@ -16,7 +16,7 @@ public class ProductSpecification {
 
     private final ProductPredicateHandler productPredicateHandler;
     private final ProductRepository productRepository;
-    public Page<Product> findBy(ControllerFilter controllerFilter, Pageable pageable) {
+    public Page<Product> findBy(FilterProducts controllerFilter, Pageable pageable) {
         Specification<Product> specification = (root, criteriaQuery, criteriaBuilder) ->
                 criteriaQuery
                         .where(productPredicateHandler.getPredicatesByFilter(controllerFilter, root, criteriaQuery, criteriaBuilder))

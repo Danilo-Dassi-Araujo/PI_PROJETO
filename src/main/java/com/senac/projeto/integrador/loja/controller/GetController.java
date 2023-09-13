@@ -6,6 +6,7 @@ import com.senac.projeto.integrador.loja.dto.response.ListingProductResponseDTO;
 import com.senac.projeto.integrador.loja.dto.response.LoginDTOResponse;
 import com.senac.projeto.integrador.loja.dto.response.PageDTO;
 import com.senac.projeto.integrador.loja.filter.ControllerFilter;
+import com.senac.projeto.integrador.loja.filter.FilterProducts;
 import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
 import com.senac.projeto.integrador.loja.service.ListingProductsService;
 import com.senac.projeto.integrador.loja.service.ListingUsersService;
@@ -42,8 +43,8 @@ public class GetController {
     }
 
     @GetMapping("/listingProducts")
-    public ResponseEntity<PageDTO<ListingProductResponseDTO>> listingProducts(ControllerFilter controllerFilter, int max, int size) {
-        PageDTO<ListingProductResponseDTO> listingProductResponseDTOS = listingProductsService.listingProducts(controllerFilter, max, size);
+    public ResponseEntity<PageDTO<ListingProductResponseDTO>> listingProducts(FilterProducts controllerFilter, @RequestParam int page, @RequestParam int maxItems) {
+        PageDTO<ListingProductResponseDTO> listingProductResponseDTOS = listingProductsService.listingProducts(controllerFilter, page, maxItems);
         return ResponseEntity.ok().body(listingProductResponseDTOS);
     }
 }
