@@ -1,12 +1,11 @@
 package com.senac.projeto.integrador.loja.controller;
 
 import com.senac.projeto.integrador.loja.dto.request.EmailDTORequest;
+import com.senac.projeto.integrador.loja.dto.request.UpdateProductRequestDTO;
 import com.senac.projeto.integrador.loja.dto.request.UserRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.UpdateDTOResponse;
-import com.senac.projeto.integrador.loja.service.AlterStockProductService;
-import com.senac.projeto.integrador.loja.service.InactiveAndActiveProductService;
-import com.senac.projeto.integrador.loja.service.InactiveAndActiveUserService;
-import com.senac.projeto.integrador.loja.service.UpdateUserService;
+import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
+import com.senac.projeto.integrador.loja.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,7 @@ public class PutController {
     private final InactiveAndActiveProductService inactiveAndActiveProductService;
     private final AlterStockProductService alterStockProductService;
     private final UpdateUserService updateUserService;
+    private final UpdateProductService updateProductService;
 
 
     @PutMapping
@@ -40,6 +40,13 @@ public class PutController {
     public ResponseEntity<Void> alterStockProduct(@PathVariable Integer id,
                                                   @PathVariable Integer newStockValue) throws Exception {
         alterStockProductService.alterStock(id, newStockValue);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @PutMapping("/updateProduct")
+    public ResponseEntity<Void> updateProduct(@RequestBody UpdateProductRequestDTO updateProductRequestDTO,
+                                              @RequestParam GroupIndicator groupIndicator) throws Exception {
+        updateProductService.updateProduct(updateProductRequestDTO, groupIndicator);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

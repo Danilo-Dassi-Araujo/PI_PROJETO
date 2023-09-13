@@ -2,13 +2,17 @@ package com.senac.projeto.integrador.loja.controller;
 
 import com.senac.projeto.integrador.loja.dto.request.LoginRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.ListingDTOResponse;
+import com.senac.projeto.integrador.loja.dto.response.ListingProductResponseDTO;
 import com.senac.projeto.integrador.loja.dto.response.LoginDTOResponse;
+import com.senac.projeto.integrador.loja.dto.response.PageDTO;
 import com.senac.projeto.integrador.loja.filter.ControllerFilter;
 import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
+import com.senac.projeto.integrador.loja.service.ListingProductsService;
 import com.senac.projeto.integrador.loja.service.ListingUsersService;
 import com.senac.projeto.integrador.loja.service.LoginService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +26,7 @@ public class GetController {
 
     private final ListingUsersService listingUsersService;
     private final LoginService loginService;
+    private final ListingProductsService listingProductsService;
 
     @GetMapping("/listingUser")
     public ResponseEntity<List<ListingDTOResponse>> getFilteredUsers(ControllerFilter controllerFilter,
@@ -34,5 +39,11 @@ public class GetController {
     public ResponseEntity<LoginDTOResponse> login(LoginRequestDTO loginRequestDTO) throws Exception {
         LoginDTOResponse loginDTOResponse = loginService.loginUser(loginRequestDTO);
         return ResponseEntity.ok().body(loginDTOResponse);
+    }
+
+    @GetMapping("/listingProducts")
+    public ResponseEntity<PageDTO<ListingProductResponseDTO>> listingProducts(ControllerFilter controllerFilter, int max, int size) {
+        PageDTO<ListingProductResponseDTO> listingProductResponseDTOS = listingProductsService.listingProducts(controllerFilter, max, size);
+        return ResponseEntity.ok().body(listingProductResponseDTOS);
     }
 }

@@ -32,7 +32,7 @@ public class UpdateUserService {
 
         User toSave = UserBuilder.buildFrom(userRequestDTO, user.getEmail(), user.getCpf(), passwordEncripted);
 
-        if(!toSave.getGroup().equals(user.getGroup())){
+        if(toSave.getEmail().equals(login)){
             throw new Exception("Alteração de grupo para usuários logado no momento não é permitida!");
         }
         userRepository.save(toSave);

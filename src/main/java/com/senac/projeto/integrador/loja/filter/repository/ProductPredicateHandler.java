@@ -1,6 +1,8 @@
 package com.senac.projeto.integrador.loja.filter.repository;
 
 import com.senac.projeto.integrador.loja.filter.ControllerFilter;
+import com.senac.projeto.integrador.loja.model.Product;
+import com.senac.projeto.integrador.loja.model.Product_;
 import com.senac.projeto.integrador.loja.model.User;
 import com.senac.projeto.integrador.loja.model.User_;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +16,12 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
-public class UserPredicateHandler {
+public class ProductPredicateHandler {
 
     public Predicate[] getPredicatesByFilter(ControllerFilter controllerFilter,
-                                             Root<User> root,
+                                             Root<Product> root,
                                              CriteriaQuery<?> cq,
                                              CriteriaBuilder cb) {
 
@@ -28,9 +29,10 @@ public class UserPredicateHandler {
 
         if (!ObjectUtils.isEmpty(controllerFilter.getName())) {
             String compare = "%" + controllerFilter.getName() + "%";
-            predicates.add(cb.like(root.get(User_.name), compare));
+            predicates.add(cb.like(root.get(Product_.nameProduct), compare));
         }
 
         return predicates.toArray(new Predicate[0]);
+
     }
 }
