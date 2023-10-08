@@ -51,9 +51,8 @@ public class PutController {
     }
 
     @PutMapping("/user")
-    public ResponseEntity<UpdateDTOResponse> alterUser(@RequestBody UserRequestDTO requestDTO,
-                                                       @RequestParam String login) throws Exception {
-        UpdateDTOResponse updateDTOResponse = updateUserService.updateUser(requestDTO, login);
+    public ResponseEntity<UpdateDTOResponse> alterUser(@RequestBody UserRequestDTO requestDTO) throws Exception {
+        UpdateDTOResponse updateDTOResponse = updateUserService.updateUser(requestDTO);
         return ResponseEntity.ok().body(updateDTOResponse);
     }
 }
