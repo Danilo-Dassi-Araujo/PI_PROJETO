@@ -3,7 +3,9 @@ package com.senac.projeto.integrador.loja.service;
 import com.senac.projeto.integrador.loja.dto.response.ListingDTOResponse;
 import com.senac.projeto.integrador.loja.filter.ControllerFilter;
 import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
+import com.senac.projeto.integrador.loja.model.Session;
 import com.senac.projeto.integrador.loja.model.User;
+import com.senac.projeto.integrador.loja.repository.SessionRepository;
 import com.senac.projeto.integrador.loja.repository.UserRepository;
 import com.senac.projeto.integrador.loja.repository.specification.UserSpecification;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +21,15 @@ public class ListingUsersService {
 
     private final UserRepository userRepository;
     private final UserSpecification userSpecification;
+    private final SessionRepository sessionRepository;
 
-    public List<ListingDTOResponse> getAllUsers(ControllerFilter controllerFilter, GroupIndicator groupIndicator) throws Exception {
+    public List<ListingDTOResponse> getAllUsers(ControllerFilter controllerFilter) throws Exception {
+        Session sessionUser = sessionRepository.findFirstByOrderByIdDesc();
         if (ObjectUtils.isEmpty(controllerFilter.getName())) {
-            return listAllUsers(groupIndicator);
+            return listAllUsers(sessionUser.getRole());
         }
 
-        if (GroupIndicator.ESTOQUISTA.equals(groupIndicator)) {
+        if (GroupIndicator.ESTOQUISTA.getGroupName().equals(sessionUser.getRole())) {
             throw new Exception("Você não tem permissão para listar usuários");
         }
 
@@ -46,8 +50,8 @@ public class ListingUsersService {
         return usersList;
     }
 
-    private List<ListingDTOResponse> listAllUsers(GroupIndicator groupIndicator) throws Exception {
-        if (GroupIndicator.ESTOQUISTA.equals(groupIndicator)) {
+    private List<ListingDTOResponse> listAllUsers(String role) throws Exception {
+        if (GroupIndicator.ESTOQUISTA.getGroupName().equals(role)) {
             throw new Exception("Você não tem permissão para listar usuários");
         }
 

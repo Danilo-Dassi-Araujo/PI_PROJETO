@@ -44,16 +44,14 @@ public class PutController {
     }
 
     @PutMapping("/updateProduct")
-    public ResponseEntity<Void> updateProduct(@RequestBody UpdateProductRequestDTO updateProductRequestDTO,
-                                              @RequestParam GroupIndicator groupIndicator) throws Exception {
-        updateProductService.updateProduct(updateProductRequestDTO, groupIndicator);
+    public ResponseEntity<Void> updateProduct(@RequestBody UpdateProductRequestDTO updateProductRequestDTO) throws Exception {
+        updateProductService.updateProduct(updateProductRequestDTO);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @PutMapping("/user")
-    public ResponseEntity<UpdateDTOResponse> alterUser(@RequestBody UserRequestDTO requestDTO,
-                                                       @RequestParam String login) throws Exception {
-        UpdateDTOResponse updateDTOResponse = updateUserService.updateUser(requestDTO, login);
+    public ResponseEntity<UpdateDTOResponse> alterUser(@RequestBody UserRequestDTO requestDTO) throws Exception {
+        UpdateDTOResponse updateDTOResponse = updateUserService.updateUser(requestDTO);
         return ResponseEntity.ok().body(updateDTOResponse);
     }
 }

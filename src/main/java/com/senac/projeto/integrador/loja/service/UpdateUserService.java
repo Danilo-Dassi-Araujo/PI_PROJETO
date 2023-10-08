@@ -4,7 +4,9 @@ import com.senac.projeto.integrador.loja.builder.UpdateDTOResponseBuilder;
 import com.senac.projeto.integrador.loja.builder.UserBuilder;
 import com.senac.projeto.integrador.loja.dto.request.UserRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.UpdateDTOResponse;
+import com.senac.projeto.integrador.loja.model.Session;
 import com.senac.projeto.integrador.loja.model.User;
+import com.senac.projeto.integrador.loja.repository.SessionRepository;
 import com.senac.projeto.integrador.loja.repository.UserRepository;
 import com.senac.projeto.integrador.loja.utils.ValidatorUtils;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +20,9 @@ public class UpdateUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SessionRepository sessionRepository;
 
-    public UpdateDTOResponse updateUser(UserRequestDTO userRequestDTO, String login) throws Exception {
+    public UpdateDTOResponse updateUser(UserRequestDTO userRequestDTO) throws Exception {
         ValidatorUtils.validateRequest(userRequestDTO);
 
         User user = userRepository.findById(userRequestDTO.getEmail()).orElse(null);
@@ -32,7 +35,9 @@ public class UpdateUserService {
 
         User toSave = UserBuilder.buildFrom(userRequestDTO, user.getEmail(), user.getCpf(), passwordEncripted);
 
-        if(toSave.getEmail().equals(login)){
+        Session userSession = sessionRepository.findFirstByOrderByIdDesc();
+
+        if(toSave.getEmail().equals(userSession.getLogin())){
             throw new Exception("Alteração de grupo para usuários logado no momento não é permitida!");
         }
         userRepository.save(toSave);

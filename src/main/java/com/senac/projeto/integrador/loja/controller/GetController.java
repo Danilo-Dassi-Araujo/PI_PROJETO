@@ -30,10 +30,9 @@ public class GetController {
     private final ListingProductsService listingProductsService;
 
     @GetMapping("/listingUser")
-    public ResponseEntity<List<ListingDTOResponse>> getFilteredUsers(ControllerFilter controllerFilter,
-                                                                     @RequestParam GroupIndicator groupIndicator) throws Exception {
+    public ResponseEntity<List<ListingDTOResponse>> getFilteredUsers(ControllerFilter controllerFilter) throws Exception {
 
-        List<ListingDTOResponse> allUsers = listingUsersService.getAllUsers(controllerFilter, groupIndicator);
+        List<ListingDTOResponse> allUsers = listingUsersService.getAllUsers(controllerFilter);
         return ResponseEntity.ok().body(allUsers);
     }
     @GetMapping("/login")
