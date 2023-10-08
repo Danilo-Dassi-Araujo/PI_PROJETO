@@ -44,9 +44,8 @@ public class PutController {
     }
 
     @PutMapping("/updateProduct")
-    public ResponseEntity<Void> updateProduct(@RequestBody UpdateProductRequestDTO updateProductRequestDTO,
-                                              @RequestParam GroupIndicator groupIndicator) throws Exception {
-        updateProductService.updateProduct(updateProductRequestDTO, groupIndicator);
+    public ResponseEntity<Void> updateProduct(@RequestBody UpdateProductRequestDTO updateProductRequestDTO) throws Exception {
+        updateProductService.updateProduct(updateProductRequestDTO);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

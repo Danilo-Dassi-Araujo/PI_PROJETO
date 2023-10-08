@@ -4,7 +4,9 @@ import com.senac.projeto.integrador.loja.builder.ProductBuilder;
 import com.senac.projeto.integrador.loja.dto.request.UpdateProductRequestDTO;
 import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
 import com.senac.projeto.integrador.loja.model.Product;
+import com.senac.projeto.integrador.loja.model.Session;
 import com.senac.projeto.integrador.loja.repository.ProductRepository;
+import com.senac.projeto.integrador.loja.repository.SessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -14,13 +16,15 @@ import org.springframework.util.ObjectUtils;
 public class UpdateProductService {
 
     private final ProductRepository productRepository;
+    private final SessionRepository sessionRepository;
 
-    public void updateProduct(UpdateProductRequestDTO updateProductRequestDTO,
-                                     GroupIndicator groupIndicator) throws Exception {
+    public void updateProduct(UpdateProductRequestDTO updateProductRequestDTO) throws Exception {
         if (ObjectUtils.isEmpty(updateProductRequestDTO)) {
             throw new Exception("Request vazia!");
         }
-        if (!GroupIndicator.ADMIN.equals(groupIndicator)) {
+        Session sessionUser = sessionRepository.findFirstByOrderByIdDesc();
+
+        if (!GroupIndicator.ADMIN.getGroupName().equals(sessionUser.getRole())) {
             throw new Exception("Somente administradores podem alterar os produtos!");
         }
 
