@@ -6,30 +6,43 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.ObjectUtils;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 @ComponentScan
 @Configuration
 @EnableAutoConfiguration
+@EnableWebSecurity
 @EnableSwagger2
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class Application {
 
-	public static void main(String[] args) throws SQLException {
-		SpringApplication.run(Application.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-//		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/loja",
-//				"postgres",
-//				"3014");
-//		if(!ObjectUtils.isEmpty(connection)){
-//			System.out.println("Conectado com sucesso!");
-//		} else{
-//			System.out.println("Falha na conexão");
-//		}
-	}
+
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeRequests(authorize -> authorize
+                        // Permitir apenas usuários com a função "ADMIN" acessem /edit/updateProduct
+                        .antMatchers(HttpMethod.PUT, "/edit/updateProduct").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PUT, "/home/register").hasRole("ADMIN")
+                        // Todas as outras solicitações requerem autenticação
+                        .anyRequest().authenticated())
+                .build();
+    }
+
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
 }
