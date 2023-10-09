@@ -1,6 +1,5 @@
 package com.senac.projeto.integrador.loja.dto.request;
 
-import io.swagger.annotations.ApiParam;
 import lombok.*;
 
 @Getter

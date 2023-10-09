@@ -2,7 +2,7 @@ package com.senac.projeto.integrador.loja.service;
 
 import com.senac.projeto.integrador.loja.dto.request.LoginRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.LoginDTOResponse;
-import com.senac.projeto.integrador.loja.model.Session;
+import com.senac.projeto.integrador.loja.model.SessionClientStore;
 import com.senac.projeto.integrador.loja.model.User;
 import com.senac.projeto.integrador.loja.repository.SessionRepository;
 import com.senac.projeto.integrador.loja.repository.UserRepository;
@@ -43,12 +43,12 @@ public class LoginService {
                     .build();
         }
 
-        Session session = Session.builder()
+        SessionClientStore sessionClientStore = SessionClientStore.builder()
                 .login(user.getEmail())
                 .role(user.getGroup().getGroupName())
                 .build();
 
-        sessionRepository.save(session);
+        sessionRepository.save(sessionClientStore);
 
         return LoginDTOResponse
                 .builder()
