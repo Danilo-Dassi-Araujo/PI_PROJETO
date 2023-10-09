@@ -3,7 +3,7 @@ package com.senac.projeto.integrador.loja.service;
 import com.senac.projeto.integrador.loja.dto.response.ListingDTOResponse;
 import com.senac.projeto.integrador.loja.filter.ControllerFilter;
 import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
-import com.senac.projeto.integrador.loja.model.Session;
+import com.senac.projeto.integrador.loja.model.SessionClientStore;
 import com.senac.projeto.integrador.loja.model.User;
 import com.senac.projeto.integrador.loja.repository.SessionRepository;
 import com.senac.projeto.integrador.loja.repository.UserRepository;
@@ -24,12 +24,12 @@ public class ListingUsersService {
     private final SessionRepository sessionRepository;
 
     public List<ListingDTOResponse> getAllUsers(ControllerFilter controllerFilter) throws Exception {
-        Session sessionUser = sessionRepository.findFirstByOrderByIdDesc();
+        SessionClientStore sessionClientStoreUser = sessionRepository.findFirstByOrderByIdDesc();
         if (ObjectUtils.isEmpty(controllerFilter.getName())) {
-            return listAllUsers(sessionUser.getRole());
+            return listAllUsers(sessionClientStoreUser.getRole());
         }
 
-        if (GroupIndicator.ESTOQUISTA.getGroupName().equals(sessionUser.getRole())) {
+        if (GroupIndicator.ESTOQUISTA.getGroupName().equals(sessionClientStoreUser.getRole())) {
             throw new Exception("Você não tem permissão para listar usuários");
         }
 

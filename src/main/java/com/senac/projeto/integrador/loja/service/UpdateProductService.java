@@ -4,7 +4,7 @@ import com.senac.projeto.integrador.loja.builder.ProductBuilder;
 import com.senac.projeto.integrador.loja.dto.request.UpdateProductRequestDTO;
 import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
 import com.senac.projeto.integrador.loja.model.Product;
-import com.senac.projeto.integrador.loja.model.Session;
+import com.senac.projeto.integrador.loja.model.SessionClientStore;
 import com.senac.projeto.integrador.loja.repository.ProductRepository;
 import com.senac.projeto.integrador.loja.repository.SessionRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,9 @@ public class UpdateProductService {
         if (ObjectUtils.isEmpty(updateProductRequestDTO)) {
             throw new Exception("Request vazia!");
         }
-        Session sessionUser = sessionRepository.findFirstByOrderByIdDesc();
+        SessionClientStore sessionClientStoreUser = sessionRepository.findFirstByOrderByIdDesc();
 
-        if (!GroupIndicator.ADMIN.getGroupName().equals(sessionUser.getRole())) {
+        if (!GroupIndicator.ADMIN.getGroupName().equals(sessionClientStoreUser.getRole())) {
             throw new Exception("Somente administradores podem alterar os produtos!");
         }
 

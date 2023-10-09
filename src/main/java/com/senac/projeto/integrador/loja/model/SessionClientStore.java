@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "TB_SESSAO", schema = "PUBLIC")
-public class Session {
+public class SessionClientStore {
 
     @Id
     @Column(name = "id")

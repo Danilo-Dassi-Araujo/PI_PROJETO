@@ -1,13 +1,12 @@
 package com.senac.projeto.integrador.loja.controller;
 
+import com.senac.projeto.integrador.loja.dto.request.CepDTORequest;
 import com.senac.projeto.integrador.loja.dto.request.LoginRequestDTO;
-import com.senac.projeto.integrador.loja.dto.response.ListingDTOResponse;
-import com.senac.projeto.integrador.loja.dto.response.ListingProductResponseDTO;
-import com.senac.projeto.integrador.loja.dto.response.LoginDTOResponse;
-import com.senac.projeto.integrador.loja.dto.response.PageDTO;
+import com.senac.projeto.integrador.loja.dto.response.*;
 import com.senac.projeto.integrador.loja.filter.ControllerFilter;
 import com.senac.projeto.integrador.loja.filter.FilterProducts;
 import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
+import com.senac.projeto.integrador.loja.service.FindCepService;
 import com.senac.projeto.integrador.loja.service.ListingProductsService;
 import com.senac.projeto.integrador.loja.service.ListingUsersService;
 import com.senac.projeto.integrador.loja.service.LoginService;
@@ -28,6 +27,7 @@ public class GetController {
     private final ListingUsersService listingUsersService;
     private final LoginService loginService;
     private final ListingProductsService listingProductsService;
+    private final FindCepService findCepService;
 
     @GetMapping("/listingUser")
     public ResponseEntity<List<ListingDTOResponse>> getFilteredUsers(ControllerFilter controllerFilter) throws Exception {
@@ -46,4 +46,11 @@ public class GetController {
         PageDTO<ListingProductResponseDTO> listingProductResponseDTOS = listingProductsService.listingProducts(controllerFilter, page, maxItems);
         return ResponseEntity.ok().body(listingProductResponseDTOS);
     }
+
+    @GetMapping("/cep")
+    public ResponseEntity<CepFeignResponseDTO> getCep(@RequestBody CepDTORequest cep){
+        CepFeignResponseDTO cepResponse = findCepService.findCep(cep.getCep());
+        return ResponseEntity.ok().body(cepResponse);
+    }
+
 }

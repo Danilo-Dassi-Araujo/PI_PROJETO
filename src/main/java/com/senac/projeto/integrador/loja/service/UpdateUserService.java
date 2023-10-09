@@ -4,7 +4,7 @@ import com.senac.projeto.integrador.loja.builder.UpdateDTOResponseBuilder;
 import com.senac.projeto.integrador.loja.builder.UserBuilder;
 import com.senac.projeto.integrador.loja.dto.request.UserRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.UpdateDTOResponse;
-import com.senac.projeto.integrador.loja.model.Session;
+import com.senac.projeto.integrador.loja.model.SessionClientStore;
 import com.senac.projeto.integrador.loja.model.User;
 import com.senac.projeto.integrador.loja.repository.SessionRepository;
 import com.senac.projeto.integrador.loja.repository.UserRepository;
@@ -35,9 +35,9 @@ public class UpdateUserService {
 
         User toSave = UserBuilder.buildFrom(userRequestDTO, user.getEmail(), user.getCpf(), passwordEncripted);
 
-        Session userSession = sessionRepository.findFirstByOrderByIdDesc();
+        SessionClientStore userSessionClientStore = sessionRepository.findFirstByOrderByIdDesc();
 
-        if(toSave.getEmail().equals(userSession.getLogin())){
+        if(toSave.getEmail().equals(userSessionClientStore.getLogin())){
             throw new Exception("Alteração de grupo para usuários logado no momento não é permitida!");
         }
         userRepository.save(toSave);
