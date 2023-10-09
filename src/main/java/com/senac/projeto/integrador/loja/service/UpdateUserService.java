@@ -37,7 +37,7 @@ public class UpdateUserService {
 
         SessionClientStore userSessionClientStore = sessionRepository.findFirstByOrderByIdDesc();
 
-        if(toSave.getEmail().equals(userSessionClientStore.getLogin())){
+        if(toSave.getEmail().equals(userSessionClientStore.getLogin()) && userRequestDTO.getGroup() != user.getGroup()){
             throw new Exception("Alteração de grupo para usuários logado no momento não é permitida!");
         }
         userRepository.save(toSave);
