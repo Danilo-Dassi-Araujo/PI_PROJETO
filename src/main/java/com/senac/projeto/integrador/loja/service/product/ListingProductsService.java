@@ -1,4 +1,4 @@
-package com.senac.projeto.integrador.loja.service;
+package com.senac.projeto.integrador.loja.service.product;
 
 import com.senac.projeto.integrador.loja.builder.PageListingProductsBuilder;
 import com.senac.projeto.integrador.loja.dto.response.ListingProductResponseDTO;

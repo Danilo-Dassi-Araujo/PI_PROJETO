@@ -15,7 +15,7 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_endereco")
+    @Column(name = "id_endereco",insertable = false, updatable = false)
     private Integer idEndereco;
 
     @Column(name = "cep")
@@ -36,7 +36,7 @@ public class Address {
     @Column(name = "cidade")
     private String cidade;
 
-    @Column(name = "id_endereco")
+    @Column(name = "uf")
     private String uf;
 
     @ManyToOne

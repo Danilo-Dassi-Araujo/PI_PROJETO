@@ -1,4 +1,4 @@
-package com.senac.projeto.integrador.loja.service;
+package com.senac.projeto.integrador.loja.service.client;
 
 import com.senac.projeto.integrador.loja.connector.CepConnector;
 import com.senac.projeto.integrador.loja.dto.response.CepFeignResponseDTO;

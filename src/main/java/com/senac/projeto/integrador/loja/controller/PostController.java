@@ -3,12 +3,11 @@ package com.senac.projeto.integrador.loja.controller;
 import com.senac.projeto.integrador.loja.dto.request.ProductRequestDTO;
 import com.senac.projeto.integrador.loja.dto.request.UserRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.RegisterDTOResponse;
-import com.senac.projeto.integrador.loja.service.RegisterProductService;
-import com.senac.projeto.integrador.loja.service.RegisterUserService;
+import com.senac.projeto.integrador.loja.service.product.RegisterProductService;
+import com.senac.projeto.integrador.loja.service.user.RegisterUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor

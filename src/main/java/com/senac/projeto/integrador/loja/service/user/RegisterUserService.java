@@ -1,4 +1,4 @@
-package com.senac.projeto.integrador.loja.service;
+package com.senac.projeto.integrador.loja.service.user;
 
 import com.senac.projeto.integrador.loja.builder.RegisterDTOResponseBuilder;
 import com.senac.projeto.integrador.loja.builder.UserBuilder;

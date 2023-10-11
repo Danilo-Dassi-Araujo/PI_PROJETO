@@ -5,14 +5,11 @@ import com.senac.projeto.integrador.loja.dto.request.LoginRequestDTO;
 import com.senac.projeto.integrador.loja.dto.response.*;
 import com.senac.projeto.integrador.loja.filter.ControllerFilter;
 import com.senac.projeto.integrador.loja.filter.FilterProducts;
-import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
-import com.senac.projeto.integrador.loja.service.FindCepService;
-import com.senac.projeto.integrador.loja.service.ListingProductsService;
-import com.senac.projeto.integrador.loja.service.ListingUsersService;
-import com.senac.projeto.integrador.loja.service.LoginService;
-import lombok.NonNull;
+import com.senac.projeto.integrador.loja.service.client.FindCepService;
+import com.senac.projeto.integrador.loja.service.product.ListingProductsService;
+import com.senac.projeto.integrador.loja.service.user.ListingUsersService;
+import com.senac.projeto.integrador.loja.service.user.LoginService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

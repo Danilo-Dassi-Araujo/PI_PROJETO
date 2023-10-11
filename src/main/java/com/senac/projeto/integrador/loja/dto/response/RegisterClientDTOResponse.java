@@ -1,0 +1,19 @@
+package com.senac.projeto.integrador.loja.dto.response;
+
+import com.senac.projeto.integrador.loja.indicator.GroupIndicator;
+import lombok.*;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class RegisterClientDTOResponse {
+
+    private String email;
+    private String nomeCompleto;
+    private String genero;
+    private LocalDate dataNascimento;
+}
